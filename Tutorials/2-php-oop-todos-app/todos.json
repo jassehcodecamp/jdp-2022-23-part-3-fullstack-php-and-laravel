@@ -1,0 +1,17 @@
+{
+  "1": {
+    "id": "64f32daf65727",
+    "todo": "Work on my PHP & Laravel",
+    "completed": true
+  },
+  "2": {
+    "id": "64f32db1c7917",
+    "todo": "Attend driving lesson again",
+    "completed": false
+  },
+  "4": {
+    "id": "64f33169b642a",
+    "todo": "Attend driving lesson again",
+    "completed": true
+  }
+}
