@@ -21,55 +21,20 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');
+Route::prefix('/todos')->name('todos.')->group(function () {
 
-Route::get('/todos/create', function () {
-    return view('todos.create', [
-        'todos' => Todo::latest()->get()
-    ]);
-})->name('todos.create');
+    Route::get('/', [TodosController::class, 'index'])->name('index');
 
-Route::get('/todos/{todoId}', function ($todoId) {
-    $todo = Todo::find($todoId);
-    return view('todos.edit', [
-        'todo' => $todo
-    ]);
+    Route::get('/create', [TodosController::class, 'create'])->name('create');
 
-})->name('todos.edit');
+    Route::get('/{todoId}', [TodosController::class, 'edit'])->name('edit');
 
-Route::patch('/todos/{todoId}', function ($todoId, Request $request) {
-    $todo = Todo::find($todoId);
+    Route::patch('/{todoId}', [TodosController::class, 'update'])->name('update');
 
-    $todo->description = $request->description;
-    // $todo->description = $request->input('description');
-    $todo->save();
+    Route::delete('/{todoId}', [TodosController::class, 'destroy'])->name('delete');
 
-    return redirect()->route('todos.index');
+    Route::patch('/{todo}/restore', [TodosController::class, 'restore'])->name('restore');
 
-})->name('todos.update');
+    Route::post('', [TodosController::class, 'store'])->name('store');
 
-
-Route::delete('/todos/{todo}', function ($todo) {
-
-    $todo = Todo::where('id', $todo)->delete();   // $todo = Todo::find($todo);
-
-    return  redirect()->back();
-})->name('todos.delete');
-
-Route::patch('/todos/{todo}/restore', function ($todo) {
-
-    $todo = Todo::where('id', $todo)->restore();
-    // $todo = Todo::onlyTrashed()->find($todo)->restore();
-
-    return  redirect()->route('todos.index');
-})->name('todos.restore');
-
-Route::post('/todos', function (Request $request) {
-
-    $todo = new Todo();
-    $todo->description =  $request->description;
-    $todo->save();
-
-    return  redirect()->back();
-
-})->name('todos.store');
+});

@@ -37,31 +37,7 @@
                             <button class="text-sm font-semibold bg-blue-500 text-gray-50 py-2.5 px-5 rounded">Submit</button>
                         </form>
                     </div>
-                    <hr class="my-4">
-                    <div class="">
-                        <div class="bg-white py-4 px-6 rounded">
-                            <ul class="space-y-4 divide divide-gray-300">
-                               @foreach($todos as $todo)
-                                <li class="text-gray-600 text-sm flex items-center justify-between space-x-6">
-                                    <div class="space-x-1 flex items-center">
-                                        <form action="#">
-                                            <input type="checkbox" name="completed" id="completed">
-                                        </form>
-                                        <p>{{ $todo->description }}</p>
-                                    </div>
-                                    <div class="space-x-1.5">
-                                        <button class="text-gray-50 bg-gray-500 py-1.5 px-2 text-xs rounded">Edit</button>
-                                        <a href="/delete-todo/{{$todo->id}}">
-                                            <button class="text-red-50 bg-red-500 py-1.5 px-2 text-xs rounded">Delete</button>
-
-                                        </a>
-                                    </div>
-                                </li>
-
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
+                   
                 </div>
 
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
