@@ -21,20 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::prefix('/todos')->name('todos.')->group(function () {
-
-    Route::get('/', [TodosController::class, 'index'])->name('index');
-
-    Route::get('/create', [TodosController::class, 'create'])->name('create');
-
-    Route::get('/{todoId}', [TodosController::class, 'edit'])->name('edit');
-
-    Route::patch('/{todoId}', [TodosController::class, 'update'])->name('update');
-
-    Route::delete('/{todoId}', [TodosController::class, 'destroy'])->name('delete');
-
-    Route::patch('/{todo}/restore', [TodosController::class, 'restore'])->name('restore');
-
-    Route::post('', [TodosController::class, 'store'])->name('store');
-
+Route::prefix('/todos')->name('todos.')->controller(TodosController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{todoId}', 'edit')->name('edit');
+    Route::patch('/{todoId}', 'update')->name('update');
+    Route::delete('/{todoId}', 'destroy')->name('delete');
+    Route::patch('/{todo}/restore', 'restore')->name('restore');
 });
