@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class TodosController extends Controller
@@ -46,6 +47,15 @@ class TodosController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'description' => [
+                'required',
+                'min:3',
+                'string',
+                Rule::unique('todos', 'description')->whereNull('deleted_at')
+            ]
+            // 'description' => ['required', 'min:3', 'string', 'unique:todos,description']
+        ]);
 
         $todo = new Todo();
         $todo->description =  $request->description;

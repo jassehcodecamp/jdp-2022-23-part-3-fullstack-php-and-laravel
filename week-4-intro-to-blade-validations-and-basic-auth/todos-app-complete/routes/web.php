@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\TodosController;
+use App\Models\Todo;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodosController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +19,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/dashboard', function (Request $request) {
+
+    if ($request->query('status') == 'deleted') {
+        $todos = Todo::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+    } else {
+        // $todos = Todo::orderBy('created_at', 'desc')->get();
+        $todos = Todo::latest()->get();
+    }
+
+    return view('dashboard', [
+        'status' => $request->query('status') ?? 'Active',
+        'todos' => $todos,
+    ]);
+
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', function () {
+    return view('welcome');
 })->name('home');
 
 Route::prefix('/todos')->name('todos.')->controller(TodosController::class)->group(function () {
@@ -27,3 +50,11 @@ Route::prefix('/todos')->name('todos.')->controller(TodosController::class)->gro
     Route::delete('/{todoId}', 'destroy')->name('delete');
     Route::patch('/{todo}/restore', 'restore')->name('restore');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
