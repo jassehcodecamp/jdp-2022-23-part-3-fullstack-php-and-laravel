@@ -28,7 +28,7 @@
                 <div class="mt-16">
                     <div class="flex space-x-4">
                         <a class="text-blue-500 font-medium underline" href="{{route('todos.index')}}">Active Todos</a>
-                        <a class="text-red-500 font-medium underline" href="{{route('todos.deleted')}}">Deleted Todos</a>
+                        <a class="text-red-500 font-medium underline" href="{{route('todos.index', ['status' => 'deleted'])}}">Deleted Todos</a>
                     </div>
                 </div>
 

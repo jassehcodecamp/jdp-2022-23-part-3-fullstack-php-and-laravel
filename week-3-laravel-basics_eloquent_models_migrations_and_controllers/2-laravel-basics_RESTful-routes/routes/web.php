@@ -23,13 +23,6 @@ Route::get('/', function () {
 
 Route::get('/todos', [TodosController::class, 'index'])->name('todos.index');
 
-// Route::get('/todos/deleted', function () {
-//     $todos = Todo::onlyTrashed()->get();
-//     return view('todos.deleted', [
-//         'todos' => $todos,
-//     ]);
-// })->name('todos.deleted');
-
 Route::get('/todos/create', function () {
     return view('todos.create', [
         'todos' => Todo::latest()->get()
