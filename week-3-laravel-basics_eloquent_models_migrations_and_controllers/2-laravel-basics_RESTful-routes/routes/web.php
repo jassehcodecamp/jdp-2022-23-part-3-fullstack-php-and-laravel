@@ -1,9 +1,6 @@
 <?php
 
 use App\Http\Controllers\TodosController;
-use App\Models\Todo;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
