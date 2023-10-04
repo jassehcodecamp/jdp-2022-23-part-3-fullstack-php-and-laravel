@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <div class="px-6 py-6 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +50,8 @@
             </x-primary-button>
         </div>
     </form>
+    </div>
+     <div class="mt-4">
+        <p class="text-sm text-gray-500">Already have an account? <a href="/login" class="text-gray-700 hover:underline">Sign In</a></p>
+    </div>
 </x-guest-layout>

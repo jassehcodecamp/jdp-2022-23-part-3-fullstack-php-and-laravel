@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function (Request $request) {
@@ -37,11 +37,8 @@ Route::get('/dashboard', function (Request $request) {
 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
-Route::prefix('/todos')->name('todos.')->controller(TodosController::class)->group(function () {
+Route::prefix('/todos')->middleware(['auth'])->name('todos.')->controller(TodosController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');

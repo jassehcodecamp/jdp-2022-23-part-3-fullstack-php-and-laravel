@@ -59,6 +59,7 @@ class TodosController extends Controller
 
         $todo = new Todo();
         $todo->description =  $request->description;
+        $todo->user_id = $request->user()->id;
         $todo->save();
 
         return  redirect()->route('todos.index');

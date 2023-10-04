@@ -1,7 +1,7 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+    <div class="px-6 py-6 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -44,4 +44,8 @@
             </x-primary-button>
         </div>
     </form>
+    </div>
+    <div class="mt-4">
+        <p class="text-sm text-gray-500">Don't have an account? <a href="/register" class="text-gray-700 hover:underline">Sign up</a></p>
+    </div>
 </x-guest-layout>
