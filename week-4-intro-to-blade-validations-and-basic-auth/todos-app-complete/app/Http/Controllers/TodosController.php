@@ -20,13 +20,18 @@ class TodosController extends Controller
         // dd($request->query('status'));
         if ($request->query('status') == 'deleted') {
             $todos = Todo::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+        } elseif ($request->query('status') == 'completed') {
+            $todos = Todo::where('completed', 1)->latest()->get();
         } else {
+            // dd('here');
             // $todos = Todo::orderBy('created_at', 'desc')->get();
-            $todos = Todo::latest()->get();
+            $todos = Todo::where('completed', 0)->latest()->get();
+            // dd($todos);
+
         }
 
         return view('todos.index', [
-            'status' => $request->query('status') ?? 'Active',
+            'status' => $request->query('status') ?? 'active',
             'todos' => $todos,
         ]);
 
@@ -124,6 +129,38 @@ class TodosController extends Controller
         // $todo = Todo::onlyTrashed()->find($todo)->restore();
 
         return  redirect()->route('todos.index');
+
+    }
+
+    public function markAsCompleted(Request $request, $todoId)
+    {
+        $todo = Todo::find($todoId);
+
+        if ($request->completed == 'on') {
+            $isCompleted = true;
+            $sessionKey = 'todo_completed';
+            $message = 'The Todo has been successfully completed!';
+        } else {
+            $isCompleted = false;
+            $sessionKey = 'todo_incompleted';
+            $message = 'The Todo has been successfully marked incomplete';
+        }
+
+        $todo->completed = $isCompleted;
+
+        $todo->save();
+
+        return  redirect()->back()->with($sessionKey, $message);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroyPermanently(string $todoId)
+    {
+        Todo::withTrashed()->where('id', $todoId)->forceDelete();
+
+        return  redirect()->back()->with('todo_deleted_permanent', 'The Todo has been deleted permanently');
 
     }
 

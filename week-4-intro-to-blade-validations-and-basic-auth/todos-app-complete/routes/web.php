@@ -46,6 +46,9 @@ Route::prefix('/todos')->middleware(['auth'])->name('todos.')->controller(TodosC
     Route::patch('/{todoId}', 'update')->name('update');
     Route::delete('/{todoId}', 'destroy')->name('delete');
     Route::patch('/{todo}/restore', 'restore')->name('restore');
+
+    Route::patch('/{todo}/complete', 'markAsCompleted')->name('complete');
+    Route::delete('/{todo}/delete-permanent', 'destroyPermanently')->name('delete-permanent');
 });
 
 Route::middleware('auth')->group(function () {
