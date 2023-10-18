@@ -12,7 +12,13 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+
+        $books = Book::with(['user'])->get();
+
+        return view('books.index', [
+            'books' => $books
+        ]);
+
     }
 
     /**

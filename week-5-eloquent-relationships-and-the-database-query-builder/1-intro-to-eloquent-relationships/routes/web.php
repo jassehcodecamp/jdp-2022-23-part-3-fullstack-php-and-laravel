@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('/authors')->middleware('auth')->name('authors.')->group(function () {
     Route::get('/', [AuthorsController::class, 'index'])->name('index');
+    Route::get('/create', [AuthorsController::class, 'create'])->name('create');
 });
 
 Route::prefix('/books')->middleware('auth')->name('books.')->group(function () {
