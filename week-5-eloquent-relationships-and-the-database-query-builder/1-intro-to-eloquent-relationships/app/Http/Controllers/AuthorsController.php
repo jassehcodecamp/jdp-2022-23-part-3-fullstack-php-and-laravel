@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -30,9 +31,21 @@ class AuthorsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAuthorRequest $storeAuthorRequest)
     {
-        //
+        /* $request->validate([
+            'name' => ['required', 'min:3','unique:authors'],
+            'biography' => 'nullable|min:10'
+        ]); */
+
+        $author = new Author();
+        $author->name = $storeAuthorRequest->name;
+        $author->biography = $storeAuthorRequest->biography;
+        $author->user_id = $storeAuthorRequest->user()->id;
+
+        $author->save();
+
+        return redirect()->route('authors.index');
     }
 
     /**
