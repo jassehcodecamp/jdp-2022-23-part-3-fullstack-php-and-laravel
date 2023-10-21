@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -26,7 +28,13 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::select('id', 'name')->get();
+        $authors = Author::select('id', 'name')->get();
+
+        return view('books.create', [
+            'categories' => $categories,
+            'authors' => $authors
+        ]);
     }
 
     /**
@@ -34,7 +42,7 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

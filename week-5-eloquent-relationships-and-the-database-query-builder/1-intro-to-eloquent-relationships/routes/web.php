@@ -38,6 +38,8 @@ Route::prefix('/authors')->middleware('auth')->name('authors.')->group(function 
 
 Route::prefix('/books')->middleware('auth')->name('books.')->group(function () {
     Route::get('/', [BooksController::class, 'index'])->name('index');
+    Route::get('/create', [BooksController::class, 'create'])->name('create');
+    Route::post('/', [BooksController::class, 'store'])->name('store');
 });
 
 require __DIR__ . '/auth.php';
