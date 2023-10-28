@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
@@ -15,7 +16,7 @@ class BooksController extends Controller
     public function index()
     {
 
-        $books = Book::with(['user', 'author', 'borrowers'])->get();
+        $books = Book::with(['user', 'author', 'borrowers'])->latest()->get();
 
         return view('books.index', [
             'books' => $books
@@ -40,9 +41,32 @@ class BooksController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $storeBookRequest)
     {
-        dd($request->all());
+        /* $book = new Book();
+
+        $book->name = $storeBookRequest->name;
+        $book->description = $storeBookRequest->description;
+        $book->category_id = $storeBookRequest->category;
+        $book->author_id = $storeBookRequest->author;
+        $book->user_id = $storeBookRequest->user()->id;
+        
+        $book->save(); */
+        // $storeBookRequest->validated();
+        /* Book::create([
+            'name' => $storeBookRequest->name,
+            'description' => $storeBookRequest->description,
+            'category_id' => $storeBookRequest->category_id,
+            'author_id' => $storeBookRequest->author_id,
+            'user_id' => $storeBookRequest->user()->id
+        ]); */
+
+        Book::create([
+            ...$storeBookRequest->validated(), 
+            'user_id' => $storeBookRequest->user()->id
+        ]);
+
+        return redirect()->route('books.index');
     }
 
     /**
