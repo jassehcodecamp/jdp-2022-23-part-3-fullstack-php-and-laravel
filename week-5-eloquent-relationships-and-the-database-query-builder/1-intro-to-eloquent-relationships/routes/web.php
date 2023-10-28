@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\BorrowersController;
+use App\Http\Controllers\BookRequestsController;
 use App\Http\Controllers\ProfileController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,18 @@ Route::prefix('/books')->middleware('auth')->name('books.')->group(function () {
     Route::get('/', [BooksController::class, 'index'])->name('index');
     Route::get('/create', [BooksController::class, 'create'])->name('create');
     Route::post('/', [BooksController::class, 'store'])->name('store');
+});
+
+Route::prefix('/borrowers')->middleware('auth')->name('borrowers.')->group(function () {
+    Route::get('/', [BorrowersController::class, 'index'])->name('index');
+    Route::get('/create', [BorrowersController::class, 'create'])->name('create');
+    Route::post('/', [BorrowersController::class, 'store'])->name('store');
+});
+
+Route::prefix('/book-requests')->middleware('auth')->name('book-requests.')->group(function () {
+    Route::get('/', [BookRequestsController::class, 'index'])->name('index');
+    Route::get('/create', [BookRequestsController::class, 'create'])->name('create');
+    Route::post('/', [BookRequestsController::class, 'store'])->name('store');
 });
 
 require __DIR__ . '/auth.php';

@@ -22,10 +22,10 @@
                         {{ __('Books') }}
                     </x-nav-link>
                     
-                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                    <x-nav-link :href="route('borrowers.index')" :active="request()->routeIs('borrowers.index')">
                         {{ __('Borrowers') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                    <x-nav-link :href="route('book-requests.index')" :active="request()->routeIs('book-requests.index')">
                         {{ __('Book Requests') }}
                     </x-nav-link>
                 </div>
