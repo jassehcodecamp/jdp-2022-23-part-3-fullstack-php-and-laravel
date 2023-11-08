@@ -15,7 +15,12 @@
                     <div class="col-span-full">
                       <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
                       <div class="mt-1">
-                          <input type="text" name="name" id="name"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="PHP & MySQL Web Development Book">
+                          <input 
+                            type="text" 
+                            name="name" 
+                            id="name"
+                            value="{{old('name')}}"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="PHP & MySQL Web Development Book">
                       </div>
                       @error('name')
                           <p class="text-sm text-rose-500 mt-1">{{ $message }}</p>
@@ -25,34 +30,42 @@
                     <div class="col-span-full">
                       <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
                       <div class="mt-1">
-                        <textarea id="description" name="description" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                        <textarea id="description" name="description" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{old('description')}}</textarea>
                       </div>
                     </div>
                     <div class="col-span-full">
                       <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
                       <div class="mt-1">
-                          <select name="category" id="category"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                          <select name="category_id" id="category"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             <option value="">Select Category</option>
                             @foreach ($categories as $category)
-                                <option value="{{$category->id}}">{{ $category->name}}</option>
+                                <option 
+                                  {{old('category_id') == $category->id ? 'selected' : ''}}
+                                  value="{{$category->id}}"
+                                >{{ $category->name}}</option>
                             @endforeach
                           </select>
                       </div>
-                      @error('category')
+                      @error('category_id')
                           <p class="text-sm text-rose-500 mt-1">{{ $message }}</p>
                       @enderror
                     </div>
                     <div class="col-span-full">
                       <label for="author" class="block text-sm font-medium leading-6 text-gray-900">Author</label>
                       <div class="mt-1">
-                          <select name="author" id="author"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                          <select name="author_id" id="author"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             <option value="">Select Author</option>
                              @foreach ($authors as $author)
-                                <option value="{{$author->id}}">{{ $author->name}}</option>
+                                <option
+                                {{old('author_id') == $author->id ? 'selected' : ''}}
+                                  value="{{$author->id}}"
+                                >
+                                  {{ $author->name}}
+                                </option>
                             @endforeach
                           </select>
                       </div>
-                      @error('author')
+                      @error('author_id')
                           <p class="text-sm text-rose-500 mt-1">{{ $message }}</p>
                       @enderror
                     </div>
