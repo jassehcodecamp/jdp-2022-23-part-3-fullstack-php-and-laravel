@@ -26,6 +26,7 @@ class StoreBookRequest extends FormRequest
             'description' => ['nullable'],
             'author_id' => ['required', 'exists:authors,id'],
             'category_id' => ['required', 'exists:categories,id'],
+            'image' => ['nullable', 'image']
         ];
     }
 }

@@ -50,7 +50,7 @@ class BooksController extends Controller
         $book->category_id = $storeBookRequest->category;
         $book->author_id = $storeBookRequest->author;
         $book->user_id = $storeBookRequest->user()->id;
-        
+
         $book->save(); */
         // $storeBookRequest->validated();
         /* Book::create([
@@ -60,11 +60,19 @@ class BooksController extends Controller
             'author_id' => $storeBookRequest->author_id,
             'user_id' => $storeBookRequest->user()->id
         ]); */
+        // dd($storeBookRequest->all());
 
-        Book::create([
-            ...$storeBookRequest->validated(), 
+        // dd($imagePath);
+        $book = Book::create([
+            ...$storeBookRequest->validated(),
             'user_id' => $storeBookRequest->user()->id
         ]);
+
+        if ($book) {
+            $imagePath = $storeBookRequest->file('image')->store('books', 'public');
+            $book->image = $imagePath;
+            $book->save();
+        }
 
         return redirect()->route('books.index');
     }

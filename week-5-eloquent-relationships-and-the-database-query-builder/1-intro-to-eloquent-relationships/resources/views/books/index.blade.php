@@ -41,7 +41,14 @@
                               <tbody class="divide-y divide-gray-200 bg-white">
                                 @foreach($books as $book)
                                 <tr>
-                                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{$book->name}}</td>
+                                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                  <div class="flex items-center gap-x-3">
+                                    <div class="w-32 h-40 rounded-md overflow-hidden">
+                                        <img class="w-full h-full object-cover" src="{{'storage/' . $book->image }}" alt="{{$book->name}} Image">
+                                    </div>
+                                   <span> {{$book->name}}</span>
+                                  </div>  
+                                  </td>
                                   {{-- <td class="max-w-[15rem] truncate whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $book->description}}</td> --}}
                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $book->author->name}}</td>
                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">{{ $book->borrowers->count()}}</td>
