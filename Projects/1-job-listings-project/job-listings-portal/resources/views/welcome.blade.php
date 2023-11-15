@@ -26,7 +26,17 @@
         
     </head>
     <body class="antialiased bg-[hsl(180_52%_96%)]">
-       <header class="py-[4.5rem]  px-4 bg-teal-400 bg-center bg-no-repeat bg-cover"></header>
+       <header class="py-20 pb-6  px-6 bg-teal-400 bg-center bg-no-repeat bg-cover">
+
+       <div>
+        <nav>
+          <ul class="flex justify-end gap-x-6 text-gray-50 font-semibold uppercase">
+            <li><a href="/login">Sign In</a></li>
+            <li><a href="/register">Create Account</a></li>
+          </ul>
+        </nav>
+       </div>
+       </header>
        <main class="max-w-7xl mx-auto py-10 px-10">
         <div class="space-y-10">
           <x-job-list-item 
