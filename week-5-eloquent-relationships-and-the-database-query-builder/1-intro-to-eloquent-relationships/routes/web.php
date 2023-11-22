@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthorsController;
+use App\Models\BookRequest;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\AuthorsController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BorrowersController;
 use App\Http\Controllers\BookRequestsController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $bookRequests = BookRequest::with(['book', 'borrower'])->latest()->take(5)->get();
+
+    return view('dashboard', [
+        'bookRequests' => $bookRequests
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

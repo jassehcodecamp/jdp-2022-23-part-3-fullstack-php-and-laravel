@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         DB::listen(function (QueryExecuted $query) {
-            logger('sql query: ' . $query->sql, ['query params' => $query->bindings]);
+            // logger('sql query: ' . $query->sql, ['query params' => $query->bindings]);
             // $query->sql;
             // $query->bindings;
             // $query->time;

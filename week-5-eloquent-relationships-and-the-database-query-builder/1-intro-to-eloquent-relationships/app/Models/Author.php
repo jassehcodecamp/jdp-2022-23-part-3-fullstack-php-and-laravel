@@ -9,6 +9,17 @@ class Author extends Model
 {
     use HasFactory;
 
+    protected static function booted(): void
+    {
+        static::saved(function (Author $author) {
+            logger('Author created', [$author]);
+        });
+
+        static::saving(function (Author $author) {
+            $author->user_id = request()->user()->id;
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

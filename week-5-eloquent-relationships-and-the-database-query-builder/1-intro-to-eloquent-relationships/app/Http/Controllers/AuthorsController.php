@@ -41,7 +41,7 @@ class AuthorsController extends Controller
         $author = new Author();
         $author->name = $storeAuthorRequest->name;
         $author->biography = $storeAuthorRequest->biography;
-        $author->user_id = $storeAuthorRequest->user()->id;
+        // $author->user_id = $storeAuthorRequest->user()->id;
 
         $author->save();
 

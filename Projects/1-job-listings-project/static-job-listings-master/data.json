@@ -1,6 +1,8 @@
 [
   {
     "id": 1,
+    "title": "",
+    "description": "",
     "company": "Photosnap",
     "logo": "./images/photosnap.svg",
     "new": true,
