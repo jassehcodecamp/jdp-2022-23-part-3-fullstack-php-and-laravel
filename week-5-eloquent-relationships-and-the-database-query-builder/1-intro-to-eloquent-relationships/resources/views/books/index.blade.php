@@ -56,7 +56,14 @@
                                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ optional($book->user)->name ?? 'N/A' }}</td>
                                 
                                   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                    <div class="flex items-center gap-x-2">
                                     <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+                                    <form method="post" action="{{route('books.delete', $book->id)}}">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="text-rose-600 hover:text-rose-900">Delete<span class="sr-only">, Lindsay Walton</span></button>
+                                    </form>
+                                    </div>
                                   </td>
                                 </tr>
                                 @endforeach

@@ -47,6 +47,7 @@ Route::prefix('/books')->middleware('auth')->name('books.')->group(function () {
     Route::get('/', [BooksController::class, 'index'])->name('index');
     Route::get('/create', [BooksController::class, 'create'])->name('create');
     Route::post('/', [BooksController::class, 'store'])->name('store');
+    Route::delete('/{book}', [BooksController::class, 'destroy'])->name('delete');
 });
 
 Route::prefix('/borrowers')->middleware('auth')->name('borrowers.')->group(function () {

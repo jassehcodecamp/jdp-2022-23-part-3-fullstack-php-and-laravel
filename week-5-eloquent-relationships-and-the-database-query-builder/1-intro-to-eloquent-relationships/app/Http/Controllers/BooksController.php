@@ -43,36 +43,10 @@ class BooksController extends Controller
      */
     public function store(StoreBookRequest $storeBookRequest)
     {
-        /* $book = new Book();
-
-        $book->name = $storeBookRequest->name;
-        $book->description = $storeBookRequest->description;
-        $book->category_id = $storeBookRequest->category;
-        $book->author_id = $storeBookRequest->author;
-        $book->user_id = $storeBookRequest->user()->id;
-
-        $book->save(); */
-        // $storeBookRequest->validated();
-        /* Book::create([
-            'name' => $storeBookRequest->name,
-            'description' => $storeBookRequest->description,
-            'category_id' => $storeBookRequest->category_id,
-            'author_id' => $storeBookRequest->author_id,
-            'user_id' => $storeBookRequest->user()->id
-        ]); */
-        // dd($storeBookRequest->all());
-
-        // dd($imagePath);
-        $book = Book::create([
+        Book::create([
             ...$storeBookRequest->validated(),
             'user_id' => $storeBookRequest->user()->id
         ]);
-
-        if ($book) {
-            $imagePath = $storeBookRequest->file('image')->store('books', 'public');
-            $book->image = $imagePath;
-            $book->save();
-        }
 
         return redirect()->route('books.index');
     }
@@ -106,6 +80,7 @@ class BooksController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect()->back();
     }
 }
