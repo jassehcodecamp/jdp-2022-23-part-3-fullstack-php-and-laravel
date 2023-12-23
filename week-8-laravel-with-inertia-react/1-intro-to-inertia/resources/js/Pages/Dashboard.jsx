@@ -20,6 +20,7 @@ export default function Dashboard({ auth, games }) {
                         {games.results.map((game) => {
                             return (
                                 <GameCard
+                                    key={game.id}
                                     image={game.background_image}
                                     name={game.name}
                                     slug={game.slug}
