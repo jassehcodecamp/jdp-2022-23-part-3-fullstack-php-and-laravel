@@ -33,6 +33,8 @@ Route::get('/dashboard', function () {
 
     $games = $response->json();
 
+    // return $games;
+
     return Inertia::render('Dashboard', [
         'games' => $games,
     ]);
